@@ -1,6 +1,6 @@
 {
-  "name": "@qubryx/cron-schedule-parser",
-  "version": "1.0.3",
+  "name": "cron-schedule-parser",
+  "version": "1.0.4",
   "description": "Node.js library for parsing cron expressions with frequency",
   "main": "lib/parser.js",
   "repository": "git://github.com/qubryx/cron-schedule-parser.git",
@@ -30,9 +30,7 @@
   ],
   "author": "Fahim",
   "license": "Apache License 2.0",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "publishConfig": {},
   "dependencies": {
     "luxon": "^3.1.0"
   },
