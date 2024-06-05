@@ -1,4 +1,5 @@
 var parser = require('./lib/parser');
+var luxon = require('luxon');
 
 try {
   // var interval = parser.parseExpression('*/2 * * * *');
@@ -35,6 +36,11 @@ try {
   // var interval2 = parser.parseCronExpressions(["5 10 L * ?"], {repeatFor:5, repeatType: 'days', frequency: 1, frequencyType:"monthly", currentDate: new Date('2024-05-20T18:30:00.000Z'), endDate: new Date('2024-06-28T18:30:00.000Z')});
   // var interval2 = parser.parseExpression("5 10 L * ?", {repeatFor:5, repeatType: 'days', frequency: 1, frequencyType:"monthly", currentDate: new Date('2024-05-20T18:30:00.000Z'), endDate: new Date('2024-05-10T18:30:00.000Z')});
   // var interval2 = parser.parseCronExpressions(["5 10 L * ?"], {repeatFor:5, repeatType: 'days', frequency: 1, frequencyType:"monthly"});
+  // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#2'], {repeatFor:10, repeatType: 'workingDays', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
+  // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1'], {repeatFor:10, repeatType: 'workingDays', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
+  // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1', '0 0 ? * 3#1'], {repeatFor:2, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
+  // var interval2 = parser.parseCronExpressions(['0 0 L * ?'], {repeatFor:10, repeatType: 'days', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
+  // var interval2 = parser.parseCronExpressions(['0 0 ? * 1L', '0 0 ? * 3L'], {repeatFor:1, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
 
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
@@ -42,14 +48,15 @@ try {
   // console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // print(interval2.next());
+  // print(interval2.next());
 
+function print(date) {
+  var formattedDate = luxon.DateTime.fromJSDate(date, { zone: 'UTC' }).setZone('Asia/Calcutta').toLocaleString(luxon.DateTime.DATETIME_MED_WITH_WEEKDAY);
+  console.log(date.toString(), ' :: ', formattedDate.toString());
+}
 
 } catch (err) {
   console.log('Error: ' + err.message);
