@@ -1,6 +1,6 @@
 {
   "name": "cron-schedule-parser",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Node.js library for parsing cron expressions with frequency",
   "main": "lib/parser.js",
   "repository": "git://github.com/qubryx/cron-schedule-parser.git",
