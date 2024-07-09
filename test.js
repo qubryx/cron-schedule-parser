@@ -19,7 +19,7 @@ try {
   // var interval2 = parser.parseCronExpressions(['0 0 20 * ?'], {frequency: 3, frequencyType:"monthly"});
   // var interval2 = parser.parseCronExpressions(['0 0 20 * ?'], {frequency: 3, frequencyType:"monthly", currentDate: new Date('2024-06-22T18:30:00.000Z')});
   // var interval2 = parser.parseCronExpressions(['0 0 20 * ?'], {repeatFor:5, repeatType: 'days', frequency: 3, frequencyType:"monthly", currentDate: new Date('2024-06-22T18:30:00.000Z')});
-  var interval2 = parser.parseCronExpressions(['0 0 1W * ?'], {repeatFor:5, repeatType: 'days',skipFrom: 1, skipTo: 5, frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-07-06T00:00:00.000Z'), endDate: new Date('2024-07-07T00:00:00.000Z')});
+  // var interval2 = parser.parseCronExpressions(['0 0 1W * ?'], {repeatFor:5, repeatType: 'days',skipFrom: 1, skipTo: 5, frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-07-06T00:00:00.000Z'), endDate: new Date('2024-07-07T00:00:00.000Z')});
   // CASE 2:
   // var interval2 = parser.parseCronExpressions(['0 0 1W * ?'], {repeatFor:5, repeatType: 'days', frequency: 2, frequencyType:"monthly", currentDate: new Date('2024-06-22T18:30:00.000Z')});
   // CASE 3:
@@ -41,7 +41,18 @@ try {
   // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1'], {repeatFor:10, repeatType: 'workingDays', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
   // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1', '0 0 ? * 3#1'], {repeatFor:2, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
   // var interval2 = parser.parseCronExpressions(['0 0 L * ?'], {repeatFor:10, repeatType: 'days', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
-  // var interval2 = parser.parseCronExpressions(['0 0 ? * 1L', '0 0 ? * 3L'], {repeatFor:1, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
+
+  var interval2 = parser.parseCronExpressions([ "0 0 ? * 1#1"], {
+      repeatFor:2,
+      repeatType: 'weeks',
+      frequency: 1,
+      frequencyType:'monthly',
+      isFullWeek: true,
+      currentDate: new Date('2024-08-01T18:30:00.000Z'),
+      // tz: 'Asia/Calcutta'
+      // tz: "Asia/Kolkata"
+      // tz: "America/Chicago"
+    });
 
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
@@ -55,21 +66,16 @@ try {
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date1: ', interval.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // print(interval2.next());
+  // print(interval2.next());
   // print(interval2.next());
   // print(interval2.next());
 
 function print(date) {
   var formattedDate = luxon.DateTime.fromJSDate(date, { zone: 'UTC' }).setZone('Asia/Calcutta').toLocaleString(luxon.DateTime.DATETIME_MED_WITH_WEEKDAY);
-  console.log(date.toString(), ' :: ', formattedDate.toString());
+  console.log(date, date.toString(), ' :: ', formattedDate.toString());
 }
 
 } catch (err) {
