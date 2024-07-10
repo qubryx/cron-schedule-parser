@@ -1,57 +1,98 @@
-const { DateTime } = require('luxon');
 var test = require('tap').test;
 var parser = require('../lib/parser');
 
-function getNextDate(interval) {
-    var nextOccurrence = interval.next();
-    var formattedNextOccurrence = DateTime.fromJSDate(nextOccurrence).toFormat('yyyy:MM:dd\'T\'HH:mm');
-    return formattedNextOccurrence
-}
-
 test('monthly full working week with repeat option and frequency', function(t) {
-    var intAmericaTz = parser.parseCronExpressions([ "0 23 ? * 1#1"], {
+    var intAmericaTz = parser.parseCronExpressions([ '0 23 ? * 1#1'], {
         repeatFor: 2,
         repeatType: 'weeks',
         frequency: 2,
         frequencyType: 'monthly',
         isFullWeek: true,
-        currentDate: new Date('2024-08-01T18:30:00.000Z'),
-        tz: "America/Chicago"
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'America/Chicago'
     });
 
-    var intAsiaTz = parser.parseCronExpressions([ "30 10 ? * 1#1"], {
+    var intAsiaTz = parser.parseCronExpressions([ '30 8 ? * 1#1'], {
         repeatFor: 2,
         repeatType: 'weeks',
         frequency: 2,
         frequencyType: 'monthly',
         isFullWeek: true,
-        currentDate: new Date('2024-08-01T18:30:00.000Z'),
-        tz: "Asia/Kolkata"
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'Asia/Kolkata'
     });
 
-    t.equal(getNextDate(intAmericaTz), '2024:08:06T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:07T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:08T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:09T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:10T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:13T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:14T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:15T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:16T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:08:17T09:30', 'US Date matches');
-    t.equal(getNextDate(intAmericaTz), '2024:10:08T09:30', 'US Date matches');
+    t.equal(intAmericaTz.next().toString(), 'Tue Jul 09 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');  
+    t.equal(intAmericaTz.next().toString(), 'Wed Jul 10 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Thu Jul 11 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Fri Jul 12 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Mon Sep 02 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Tue Sep 03 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Wed Sep 04 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Thu Sep 05 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Fri Sep 06 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Mon Sep 09 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Tue Sep 10 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Wed Sep 11 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Thu Sep 12 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Fri Sep 13 2024 23:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Mon Nov 04 2024 23:00:00 GMT-0600 (Central Standard Time)', 'Machine:CST :: tz:CST'); 
 
-    t.equal(getNextDate(intAsiaTz), '2024:08:05T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:06T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:07T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:08T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:09T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:12T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:13T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:14T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:15T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:08:16T10:30', 'Date matches');
-    t.equal(getNextDate(intAsiaTz), '2024:10:07T10:30', 'Date matches');
+    t.equal(intAsiaTz.next().toString(), 'Tue Jul 09 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Wed Jul 10 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Wed Jul 10 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Thu Jul 11 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Thu Jul 11 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Fri Jul 10 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Sun Sep 01 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Mon Sep 02 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Mon Sep 02 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Tue Sep 03 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Tue Sep 03 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Wed Sep 04 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Wed Sep 04 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Thu Sep 05 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Thu Sep 05 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Fri Sep 06 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Sun Sep 08 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Mon Sep 09 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Mon Sep 09 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Tue Sep 10 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Tue Sep 10 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Wed Sep 11 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Wed Sep 11 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Thu Sep 12 2024 08:30:00 
+    t.equal(intAsiaTz.next().toString(), 'Thu Sep 12 2024 22:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Fri Sep 13 2024 08:30:00
+    t.equal(intAsiaTz.next().toString(), 'Sun Nov 03 2024 21:00:00 GMT-0600 (Central Standard Time)', 'Machine:CST :: tz:IST'); // IST Mon Nov 04 2024 08:30:00 
+    
+
+    t.end();
+});
+
+test('every two month last two full working week', function(t) {
+    var intAmericaTz = parser.parseCronExpressions([ '30 10 ? * 5L'], {
+        repeatFor: 2,
+        repeatType: 'weeks',
+        frequency: 3,
+        frequencyType: 'monthly',
+        isFullWeek: true,
+        currentDate: new Date('2024-07-23T18:30:00.000Z'), // IST 2024-07-24 00:00:00 :: CST 2024-07-23 13:30:00
+        tz: 'America/Chicago'
+    });
+    var intAsiaTz = parser.parseCronExpressions([ '0 0 ? * 5L'], {
+        repeatFor: 2,
+        repeatType: 'weeks',
+        frequency: 3,
+        frequencyType: 'monthly',
+        isFullWeek: true,
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'Asia/Kolkata'
+    });
+
+    t.equal(intAmericaTz.next().toString(), 'Wed Jul 24 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Thu Jul 25 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Fri Jul 26 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Mon Oct 14 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Tue Oct 15 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Wed Oct 16 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Thu Oct 17 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Fri Oct 18 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Mon Oct 21 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Tue Oct 22 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Wed Oct 23 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Thu Oct 24 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Fri Oct 25 2024 10:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST');
+    t.equal(intAmericaTz.next().toString(), 'Mon Jan 20 2025 10:30:00 GMT-0600 (Central Standard Time)', 'Machine:CST :: tz:CST');
+
+    t.equal(intAsiaTz.next().toString(), 'Thu Jul 11 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Mon Jul 15 2024 00:00:00 
 
     t.end();
 });
