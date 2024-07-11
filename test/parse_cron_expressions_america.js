@@ -1,6 +1,34 @@
 var test = require('tap').test;
 var parser = require('../lib/parser');
 
+test('every 2 week on Mon and Thu', function(t) {
+    var intAmericaTz = parser.parseCronExpressions([ '0 0 ? * 1,4'], {
+        frequency: 2,
+        frequencyType: 'weekly',
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'America/Chicago'
+    });
+    var intAsiaTz = parser.parseCronExpressions([ '0 0 ? * 1,4'], {
+        frequency: 2,
+        frequencyType: 'weekly',
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'Asia/Kolkata'
+    });
+
+    t.equal(intAmericaTz.next().toString(), 'Thu Jul 11 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Mon Jul 22 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Thu Jul 25 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Mon Aug 05 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+   
+    t.equal(intAsiaTz.next().toString(), 'Fri Jul 12 2024 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // IST Thu Jul 11 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Tue Jul 23 2024 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // IST Mon Jul 22 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Fri Jul 26 2024 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // IST Thu Jul 25 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Tue Aug 06 2024 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // IST Mon Aug 05 2024 00:00:00 
+
+
+    t.end();
+});
+
 test('monthly full working week with repeat option and frequency', function(t) {
     var intAmericaTz = parser.parseCronExpressions([ '0 23 ? * 1#1'], {
         repeatFor: 2,
