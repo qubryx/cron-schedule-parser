@@ -42,15 +42,11 @@ try {
   // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1', '0 0 ? * 3#1'], {repeatFor:2, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
   // var interval2 = parser.parseCronExpressions(['0 0 L * ?'], {repeatFor:10, repeatType: 'days', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
 
-  var interval2 = parser.parseCronExpressions([ '0 0 ? * 1#2'], {
+  var interval2 = parser.parseCronExpressions([ '0 0 31 * ?'], {
     frequency: 1,
-        repeatFor: 10,
-        repeatType: 'workingDays',
         frequencyType: 'monthly',
-        currentDate: new Date('2024-07-16T18:30:00.000Z'), // IST 2024-07-17 00:00:00 :: CST 2024-07-16 13:30:00
-        endDate: new Date('2024-08-20T18:30:00.000Z'), // IST 2024-08-21 00:00:00 :: CST 2024-08-20 13:30:00
-        // tz: 'Asia/Kolkata'
-        tz: 'America/Chicago'
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'Asia/Kolkata' 
   });
 
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
