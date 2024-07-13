@@ -42,12 +42,56 @@ try {
   // var interval2 = parser.parseCronExpressions(['0 0 ? * 1#1', '0 0 ? * 3#1'], {repeatFor:2, repeatType: 'weeks', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
   // var interval2 = parser.parseCronExpressions(['0 0 L * ?'], {repeatFor:10, repeatType: 'days', frequency: 1, frequencyType:'monthly', currentDate: new Date('2024-06-10T18:30:00.000Z'), tz: 'Asia/Calcutta'});
 
-  var interval2 = parser.parseCronExpressions([ '0 0 31 * ?'], {
+  var interval = parser.parseCronExpressions([ '0 0 ? * 5L'], {
+    repeatFor: 2,
+    repeatType: 'weeks',
+    frequency: 2,
+    frequencyType: 'monthly',
+    isFullWeek: true,
+    currentDate: new Date('2024-07-23T18:30:00.000Z'), // IST 2024-07-24 00:00:00 :: CST 2024-07-23 13:30:00
+    tz: 'Asia/Kolkata'
+});
+
+  var interval = parser.parseCronExpressions([ '0 0 LW 2 ?'], {
     frequency: 1,
-        frequencyType: 'monthly',
-        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
-        tz: 'Asia/Kolkata' 
+    frequencyType: 'yearly',
+    currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
+    tz: 'Asia/Kolkata'
+    // tz: 'America/Chicago'
   });
+
+  var interval = parser.parseCronExpressions([ '0 0 LW * ?'], {
+    frequency: 1,
+    frequencyType: 'monthly',
+    currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
+    tz: 'Asia/Kolkata'
+    // tz: 'America/Chicago'
+  });
+
+  // TODO: Test This in us Timezone
+  var interval = parser.parseCronExpressions([ '0 23 1 * ?'], {
+    frequency: 1,
+    frequencyType: 'monthly',
+    repeatFor: 2,
+    repeatType: 'days',
+    currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
+    // tz: 'Asia/Kolkata'
+    tz: 'America/Chicago'
+  });
+
+  var interval = parser.parseCronExpressions([ '0 0 ? * 1,6'], {
+            frequency: 2,
+            frequencyType: 'weekly',
+            currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+            tz: 'Asia/Kolkata'
+        });
+
+        var interval2 = parser.parseCronExpressions([ '0 23 ? * 0,4,6'], {
+          frequency: 1,
+          frequencyType: 'weekly',
+          currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+          tz: 'America/Chicago'
+      });
 
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date 3: ', interval3.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
@@ -60,12 +104,18 @@ try {
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
-  console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
+  // console.log('Date2: ', interval2.next().toString()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // console.log('Date2: ', interval2.hasNext()); // Sat Dec 29 2012 00:42:00 GMT+0200 (EET)
   // print(interval2.next());
   // print(interval2.next());

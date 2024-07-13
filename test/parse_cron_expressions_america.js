@@ -29,6 +29,37 @@ test('every 2 week on Mon and Thu', function(t) {
     t.end();
 });
 
+test('every 2 week on Sun and Sat', function(t) {
+    var intAmericaTz = parser.parseCronExpressions([ '0 0 ? * 0,6'], {
+        frequency: 2,
+        frequencyType: 'weekly',
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'America/Chicago'
+    });
+    var intAsiaTz = parser.parseCronExpressions([ '0 0 ? * 0,6'], {
+        frequency: 2,
+        frequencyType: 'weekly',
+        currentDate: new Date('2024-07-09T18:30:00.000Z'), // IST 2024-07-10 00:00:00 :: CST 2024-07-09 13:30:00
+        tz: 'Asia/Kolkata'
+    });
+
+    t.equal(intAmericaTz.next().toString(), 'Sat Jul 13 2024 00:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sun Jul 21 2024 00:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sat Jul 27 2024 00:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sun Aug 04 2024 00:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sat Aug 10 2024 00:00:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:CST'); 
+   
+    t.equal(intAsiaTz.next().toString(), 'Sun Jul 14 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Sat Jul 13 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Mon Jul 22 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Sun Jul 21 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Sun Jul 28 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Sat Jul 27 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Mon Aug 05 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Sun Aug 04 2024 00:00:00 
+    t.equal(intAsiaTz.next().toString(), 'Sun Aug 11 2024 13:30:00 GMT-0500 (Central Daylight Time)', 'Machine:CST :: tz:IST'); // IST Sat Aug 10 2024 00:00:00 
+
+
+    t.end();
+});
+
+
 test('every three month on 12th at 11PM', function(t) {
     var intAmericaTz = parser.parseCronExpressions([ '0 0 12 * ?'], {
         frequency: 3,
