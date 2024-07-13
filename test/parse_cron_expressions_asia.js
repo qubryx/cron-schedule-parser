@@ -84,7 +84,7 @@ test('every week on Sun, Wed and Sat', function(t) {
     t.equal(intAsiaTz.next().toString(), 'Sat Jul 20 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
     t.equal(intAsiaTz.next().toString(), 'Sun Jul 21 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
    
-    t.equal(intAmericaTz.next().toString(), 'Thu Jul 11 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sat Jul 10 2024 23:00:00 
+    t.equal(intAmericaTz.next().toString(), 'Thu Jul 11 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Wed Jul 10 2024 23:00:00 
     t.equal(intAmericaTz.next().toString(), 'Sun Jul 14 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sat Jul 13 2024 23:00:00 
     t.equal(intAmericaTz.next().toString(), 'Mon Jul 15 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sun Jul 14 2024 23:00:00 
     t.equal(intAmericaTz.next().toString(), 'Thu Jul 18 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Wed Jul 17 2024 23:00:00 
