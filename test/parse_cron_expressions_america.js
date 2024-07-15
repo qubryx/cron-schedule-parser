@@ -89,7 +89,7 @@ test('every week on Sun, Wed and Sat', function(t) {
     t.end();
 });
 
-test('every three month on 12th at 11PM', function(t) {
+test('every three month on 12th', function(t) {
     var intAmericaTz = parser.parseCronExpressions([ '0 0 12 * ?'], {
         frequency: 3,
         frequencyType: 'monthly',
