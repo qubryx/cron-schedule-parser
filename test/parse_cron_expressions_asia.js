@@ -331,7 +331,7 @@ test('every Feb on last last 2 days', function(t) {
         repeatFor: 2,
         repeatType: 'days',
         currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
-        endDate: new Date('2029-03-01T18:30:00.000Z'), // IST 2029-03-01 00:00:00 :: CST 2029-03-01 13:30:00
+        endDate: new Date('2029-03-01T18:30:00.000Z'), // IST 2029-03-02 00:00:00 :: CST 2029-03-01 13:30:00
         tz: 'Asia/Kolkata'
     });
 
@@ -340,7 +340,8 @@ test('every Feb on last last 2 days', function(t) {
         frequencyType: 'yearly',
         repeatFor: 2,
         repeatType: 'days',
-        currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
+        currentDate: new Date('2024-11-09T18:30:00.000Z'), // CST 2024-11-09 13:30:00
+        endDate: new Date('2029-02-28T18:30:00.000Z'), //  CST 2029-02-28 13:30:00
         tz: 'America/Chicago'
     });
 
@@ -366,15 +367,23 @@ test('every Feb on last last 2 days', function(t) {
     t.equal(intAsiaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
     
     t.equal(intAmericaTz.next().toString(), 'Fri Feb 28 2025 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Thu Feb 27 2025 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Sat Mar 01 2025 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Feb 28 2025 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Sat Feb 28 2026 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Feb 27 2026 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Sun Mar 01 2026 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sat Feb 28 2026 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Sun Feb 28 2027 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sat Feb 27 2027 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Mon Mar 01 2027 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Sun Feb 28 2027 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Tue Feb 29 2028 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Mon Feb 28 2028 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Wed Mar 01 2028 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Tue Feb 29 2028 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
     t.equal(intAmericaTz.next().toString(), 'Wed Feb 28 2029 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Tue Feb 27 2029 23:00:00 
-    t.equal(intAmericaTz.next().toString(), 'Thu Mar 01 2029 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Wed Feb 28 2029 23:00:00 
+    t.equal(intAmericaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
 
     t.end();
 });
@@ -392,6 +401,7 @@ test('every month on last working day', function(t) {
         frequency: 1,
         frequencyType: 'monthly',
         currentDate: new Date('2024-11-09T18:30:00.000Z'), // IST 2024-11-10 00:00:00 :: CST 2024-11-09 13:30:00
+        endDate: new Date('2025-04-01T18:30:00.000Z'), // IST 2025-04-01 00:00:00 :: CST 2025-04-01 13:30:00
         tz: 'America/Chicago'
     });
 
@@ -407,11 +417,108 @@ test('every month on last working day', function(t) {
     t.equal(intAsiaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
     
     t.equal(intAmericaTz.next().toString(), 'Sat Nov 30 2024 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Nov 29 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
     t.equal(intAmericaTz.next().toString(), 'Wed Jan 01 2025 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Tue Dec 31 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
     t.equal(intAmericaTz.next().toString(), 'Sat Feb 01 2025 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Jan 31 2025 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
     t.equal(intAmericaTz.next().toString(), 'Sat Mar 01 2025 10:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Feb 28 2025 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
     t.equal(intAmericaTz.next().toString(), 'Tue Apr 01 2025 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Mon Mar 31 2025 23:00:00 
+    t.equal(intAmericaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
 
+    t.end();
+});
+
+test('every month on last working day repeat for 5 working days', function(t) {
+    var intAsiaTz = parser.parseCronExpressions([ '0 0 LW * ?'], {
+        frequency: 1,
+        frequencyType: 'monthly',
+        repeatFor: 5,
+        repeatType: 'workingDays',
+        currentDate: new Date('2024-06-28T18:30:00.000Z'), // IST 2024-06-29 00:00:00 
+        endDate: new Date('2024-08-27T18:30:00.000Z'), // IST 2024-07-28 00:00:00 
+        tz: 'Asia/Kolkata'
+    });
+
+    var intAmericaTz = parser.parseCronExpressions([ '0 23 LW * ?'], {
+        frequency: 1,
+        frequencyType: 'monthly',
+        repeatFor: 5,
+        repeatType: 'workingDays',
+        currentDate: new Date('2024-06-29T18:30:00.000Z'), // IST 2024-06-28 13:30:00 
+        endDate: new Date('2024-08-27T18:30:00.000Z'), // IST 2024-07-27 13:30:00 
+        tz: 'America/Chicago'
+    });
+
+    t.equal(intAsiaTz.next().toString(), 'Thu Jul 25 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Fri Jul 26 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Mon Jul 29 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Tue Jul 30 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Wed Jul 31 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Mon Aug 26 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Tue Aug 27 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Wed Aug 28 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
+    
+    t.equal(intAmericaTz.next().toString(), 'Fri Jul 26 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Thu Jul 25 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sat Jul 27 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Jul 26 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Tue Jul 30 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Mon Jul 29 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Wed Jul 31 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Tue Jul 30 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Thu Aug 01 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Wed Jul 31 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Tue Aug 27 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Mon Aug 26 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
+    t.end();
+});
+
+test('every month on last working day repeat for 5 working days start and end without cron end date (edge case)', function(t) {
+    var intAsiaTz = parser.parseCronExpressions([ '0 0 LW * ?'], {
+        frequency: 1,
+        frequencyType: 'monthly',
+        repeatFor: 5,
+        repeatType: 'workingDays',
+        currentDate: new Date('2024-06-28T18:30:00.000Z'), // IST 2024-06-29 00:00:00 
+        endDate: new Date('2024-07-29T18:30:00.000Z'), // IST 2024-07-30 00:00:00 
+        tz: 'Asia/Kolkata'
+    });
+
+    var intAmericaTz = parser.parseCronExpressions([ '0 23 LW * ?'], {
+        frequency: 1,
+        frequencyType: 'monthly',
+        repeatFor: 5,
+        repeatType: 'workingDays',
+        currentDate: new Date('2024-06-29T18:30:00.000Z'), // IST 2024-06-28 13:30:00 
+        endDate: new Date('2024-07-30T18:30:00.000Z'), // IST 2024-07-30 13:30:00 
+        tz: 'America/Chicago'
+    });
+
+    t.equal(intAsiaTz.next().toString(), 'Thu Jul 25 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Fri Jul 26 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Mon Jul 29 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), true, 'Machine:IST :: tz:IST :: hasNext'); 
+    t.equal(intAsiaTz.next().toString(), 'Tue Jul 30 2024 00:00:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:IST'); 
+    t.equal(intAsiaTz.hasNext(), false, 'Machine:IST :: tz:IST :: hasNext'); 
+    
+    t.equal(intAmericaTz.next().toString(), 'Fri Jul 26 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Thu Jul 25 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Sat Jul 27 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Fri Jul 26 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), true, 'Machine:IST :: tz:IST'); 
+    t.equal(intAmericaTz.next().toString(), 'Tue Jul 30 2024 09:30:00 GMT+0530 (India Standard Time)', 'Machine:IST :: tz:CST'); // CST Mon Jul 29 2024 23:00:00 
+    t.equal(intAmericaTz.hasNext(), false, 'Machine:IST :: tz:IST'); 
     t.end();
 });
 
