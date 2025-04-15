@@ -17,7 +17,7 @@ In the same directory as your package.json file, create or edit an `.npmrc` file
 @qubryx:registry=https://npm.pkg.github.com/qubryx
 ```
 
-Supported format
+Supported Format
 ========
 
 ```
